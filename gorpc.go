@@ -65,9 +65,9 @@ func splitAddresses(addresses string) (common.Address, common.Address, error) {
 }
 
 func getPrice(addresses string, precision int64) (float64, error) {
-	client, err := ethclient.Dial("https://mainnet.infura.io/v3/a6995174790a4293904918f4ff7056de")
+	client, err := ethclient.Dial("https://mainnet.infura.io/v3/cefa7de205f543888138627880fab9cb")
 	if err != nil {
-		return 0.0, fmt.Errorf("Error in getPrice in client, err := ethclient.Dial(\"https://mainnet.infura.io/v3/a6995174790a4293904918f4ff7056de\"): %s", err)
+		return 0.0, fmt.Errorf("Error in getPrice in client, err := ethclient.Dial(\"https://mainnet.infura.io/v3/cefa7de205f543888138627880fab9cb\"): %s", err)
 	}
 
 	tokenA, tokenB, err := splitAddresses(addresses)
