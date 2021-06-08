@@ -16,7 +16,7 @@ import (
 
 func main() {
 	router := mux.NewRouter()
-	router.HandleFunc("/api/Get/Price/{pair}/{decimals}", GetPrice).Methods("GET")
+	router.HandleFunc("/api/Get/Price/{pair}/{decimals}/{swap}", GetPrice).Methods("GET")
 
 	srv := &http.Server{
 		Addr:         ":9000",
