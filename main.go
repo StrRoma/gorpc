@@ -17,7 +17,7 @@ import (
 func main() {
 	router := mux.NewRouter()
 	router.HandleFunc("/api/Get/Price/{pair}/{decimals}/{swap}", GetPrice).Methods("GET")
-	router.HandleFunc("/api/Get/Price/{pair}/{decimals}", GetPrice).Methods("GET") // old method
+	// router.HandleFunc("/api/Get/Price/{pair}/{decimals}", GetPrice).Methods("GET") // old method
 
 	srv := &http.Server{
 		Addr:         ":9000",
@@ -50,7 +50,7 @@ var GetPrice = func(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
 	params := mux.Vars(r)
 
-	fmt.Println(" request", "/api/Get/Price/{pair}/{decimals}/{swap}", params["pair"], params["decimals"])
+	fmt.Println(" request", "/api/Get/Price/{pair}/{decimals}/{swap}", params["pair"], params["decimals"], params["swap"])
 
 	d, _ := strconv.ParseInt(params["decimals"], 10, 64)
 
@@ -60,11 +60,11 @@ var GetPrice = func(w http.ResponseWriter, r *http.Request) {
 	if params["swap"] == "uni" || params["swap"] == "" {
 		price, err = getPriceUni(params["pair"], d)
 	} else {
-		// price, err = getPriceCake(params["pair"], d)
+		price, err = getPriceCake(params["pair"], d)
 	}
 
 	if err != nil {
-		Respond(w, Message(true, "Error in getPrice"+"   Err: "+err.Error()))
+		Respond(w, Message(true, "Error in getPrice" + "   Err: "+err.Error()))
 		return
 	}
 	// fmt.Println(data)
