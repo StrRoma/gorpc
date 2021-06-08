@@ -28,8 +28,23 @@ func floatify(intString string, precision int) (float64, error) {
 	return res, nil
 }
 
-func getPairAddress(client *ethclient.Client, tokenA common.Address, tokenB common.Address) (common.Address, error) {
+func getPairAddressUni(client *ethclient.Client, tokenA common.Address, tokenB common.Address) (common.Address, error) {
 	cFactory, err := factorycontract.NewFactorycontract(common.HexToAddress("0x5C69bEe701ef814a2B6a3EDD4B1652CB9cc5aA6f"), client)
+	if err != nil {
+		return tokenA, err
+	}
+	pairAddress, err := cFactory.GetPair(nil, tokenA, tokenB)
+	if err != nil {
+		return tokenA, err
+	}
+	if pairAddress.Hex() == common.HexToAddress("0x0000000000000000000000000000000000000000").Hex() {
+		return tokenA, errors.New("!!getPairAddress(): Pair does not exist")
+	}
+	return pairAddress, nil
+}
+
+func getPairAddressCake(client *ethclient.Client, tokenA common.Address, tokenB common.Address) (common.Address, error) {
+	cFactory, err := factorycontract.NewFactorycontract(common.HexToAddress("0xcA143Ce32Fe78f1f7019d7d551a6402fC5350c73"), client)
 	if err != nil {
 		return tokenA, err
 	}

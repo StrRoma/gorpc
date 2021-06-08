@@ -13,16 +13,16 @@ import (
 func getPriceCake(addresses string, precision int64) (float64, error) {
 	client, err := ethclient.Dial("https://bsc-dataseed.binance.org/")
 	if err != nil {
-		return 0.0, fmt.Errorf("Error in getPrice in client, err := ethclient.Dial(\"https://mainnet.infura.io/v3/cefa7de205f543888138627880fab9cb\"): %s", err)
+		return 0.0, fmt.Errorf("Error in getPrice in client, err := ethclient.Dial(\"https://bsc-dataseed.binance.org/\"): %s", err)
 	}
 
 	tokenA, tokenB, err := splitAddresses(addresses)
 	if err != nil {
 		return 0.0, fmt.Errorf("Error in getPrice in tokenA, tokenB, err := splitAddresses(addresses): %s", err)
 	}
-	pairAddress, err := getPairAddress(client, tokenA, tokenB)
+	pairAddress, err := getPairAddressCake(client, tokenA, tokenB)
 	if err != nil {
-		return 0.0, fmt.Errorf("Error in getPrice in pairAddress, err := getPairAddress(client, tokenA, tokenB): %s", err)
+		return 0.0, fmt.Errorf("Error in getPrice in pairAddress, err := getPairAddressCake(client, tokenA, tokenB): %s", err)
 	}
 	cPair, err := paircontract.NewPaircontract(pairAddress, client)
 	if err != nil {

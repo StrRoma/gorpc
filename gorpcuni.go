@@ -20,9 +20,9 @@ func getPriceUni(addresses string, precision int64) (float64, error) {
 	if err != nil {
 		return 0.0, fmt.Errorf("Error in getPrice in tokenA, tokenB, err := splitAddresses(addresses): %s", err)
 	}
-	pairAddress, err := getPairAddress(client, tokenA, tokenB)
+	pairAddress, err := getPairAddressUni(client, tokenA, tokenB)
 	if err != nil {
-		return 0.0, fmt.Errorf("Error in getPrice in pairAddress, err := getPairAddress(client, tokenA, tokenB): %s", err)
+		return 0.0, fmt.Errorf("Error in getPrice in pairAddress, err := getPairAddressUni(client, tokenA, tokenB): %s", err)
 	}
 	cPair, err := paircontract.NewPaircontract(pairAddress, client)
 	if err != nil {
